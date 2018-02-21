@@ -6,19 +6,25 @@
 
 <script>
 import JsPDF from 'jspdf'
+import 'jspdf-autotable'
 
 export default {
   methods: {
     createPdf () {
+      var columns = ['ID', 'Name', 'Country']
+      var rows = [
+        [1, 'Shaw', 'Tanzania'],
+        [2, 'Nelson', 'Kazakhstan'],
+        [3, 'Garcia', 'Madagascar']
+      ]
       let pdfName = 'test'
-      var doc = new JsPDF()
-      doc.setFontSize(30)
-      var xOffset = (doc.internal.pageSize.width / 2) - (doc.getStringUnitWidth('Hello World') * 30 / 2)
-      console.log(xOffset)
-      doc.text('Hello World', xOffset, 20)
-      var text = 'Hi How are you'
-      xOffset = (doc.internal.pageSize.width / 2) - (doc.getStringUnitWidth(text) * doc.internal.getFontSize() / 2)
-      doc.text(text, xOffset, 250)
+      var doc = new JsPDF('p', 'pt')
+      var fontSize = 30
+      doc.setFontSize(fontSize)
+      var xOffset = (doc.internal.pageSize.width / 2) - (doc.getStringUnitWidth('Hello World') * fontSize / 2)
+      doc.text('Hello World', xOffset, 30)
+      doc.setFontSize(10)
+      doc.autoTable(columns, rows)
       doc.save(pdfName + '.pdf')
     }
   }
