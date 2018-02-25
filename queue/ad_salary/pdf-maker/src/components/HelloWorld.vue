@@ -1,7 +1,6 @@
 <template>
   <div class="hello">
     <button @click="createPDF()">click</button>
-    <button @click="printPDF()">canvas</button>
     <div id="pdf">
       <div style="min-height: 100vh; max-width: 1000px; padding: 20px;">  <!-- ここにA4のwidth指定すればいい感じになるかも -->
         <!-- ここにHTML要素 -->
@@ -107,24 +106,10 @@
 
 <script>
 import JsPDF from 'jspdf'
-import 'jspdf-autotable'
 import html2canvas from 'html2canvas'
 
 export default {
-  data () {
-    return {
-      canvasData: null
-    }
-  },
   methods: {
-    printPDF () {
-      var pdfName = 'test'
-      var printDoc = new JsPDF('l', 'pt', 'a4')
-      // var width = 105
-      var source = window.document.getElementById('pdf')
-      printDoc.fromHTML(source, 0, 0)
-      printDoc.save(pdfName + '.pdf')
-    },
     createPDF () {
       console.log('hoge')
       html2canvas(document.getElementById('pdf'))
